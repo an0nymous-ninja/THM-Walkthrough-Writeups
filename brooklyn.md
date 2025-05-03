@@ -26,7 +26,7 @@ we performed directory enumeration using Gobuster to check for hidden directorie
 ```bash
 gobuster dir -u http://10.10.232.91 -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
 ```
-![alt text](image-1.png)
+![alt text](Images/image-1.png)
 
 However, this yielded no useful results.
 
