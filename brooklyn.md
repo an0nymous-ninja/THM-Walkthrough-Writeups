@@ -19,9 +19,9 @@ sudo nmap -sS -sV -A -T4 10.10.232.91
 
 From the Nmap Scan report we can see that :
 
-1.There is a ftp service running on port number 21 version-vsftpd 3.0.3 
-2.ssh service on port 22 openSSH 7.6p1
-3.http server on port 80 hosted using Apache/2.4.29
+1.There is a ftp service running on port number 21 version-vsftpd 3.0.3 <br>
+2.ssh service on port 22 openSSH 7.6p1<br>
+3.http server on port 80 hosted using Apache/2.4.29 <br>
 
 we performed directory enumeration using Gobuster to check for hidden directories:
 
