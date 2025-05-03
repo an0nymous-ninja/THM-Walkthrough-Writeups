@@ -147,6 +147,6 @@ This revealed the **root flag**, completing our exploitation process.
 * Cracked root password and accessed the root flag using GTFOBins method.
 * Pwned Brute It !!!!
 
-![alt text](image-56.png)
+![alt text](Images/image-56.png)
 
 ---
