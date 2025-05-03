@@ -58,7 +58,7 @@ After successful cracking, the tool extracted a hidden message and saved it in a
 
 The extracted data revealed credentials for the user holt.
 
-<img src="Images/image-6.png" alt="alt text" width="70%" />
+<img src="Images/image-6.png" alt="alt text" width="40%" />
 
 ### 🔓 Brute-Force Attack
 
