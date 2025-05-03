@@ -16,7 +16,7 @@ We begin the assessment by scanning the target machine using Nmap to identify op
 sudo nmap -sS -sV -A -T4 10.10.232.91
 ```
 ![alt text](Images/image.png)
-<img src="Images/image.png" alt="alt text" width="50%" />
+<img src="Images/image.png" alt="alt text" width="75%" />
 From the Nmap Scan report we can see that :
 1.There is a ftp service running on port number 21 version-vsftpd 3.0.3 
 2.ssh service on port 22 openSSH 7.6p1
