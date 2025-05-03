@@ -176,6 +176,6 @@ We were now operating as **root**. At this point, we could access the **root.txt
 
 * Pwned the Tomghost !!!
   
-![alt text](image-36.png)
+![alt text](Images/image-36.png)
 
 ---
