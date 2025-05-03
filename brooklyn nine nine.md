@@ -1,9 +1,8 @@
-## 🕵️ Brooklyn Nine-Nine – TryHackMe Walkthrough
+##  Brooklyn Nine-Nine – TryHackMe Walkthrough
 
 ---
-**Author:** Sanjay  
-**Date:** May 3, 2025  
-**Profile:** cyberdragon1 [0x9][MAGE]   
+**Author:** Sanjay D    
+**THM-Profile:** cyberdragon1 [0x9][MAGE]   
 
 ---
 
