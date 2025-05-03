@@ -67,7 +67,7 @@ With Jake identified as a potential username, we proceeded to brute-force his SS
 ```bash
 hydra -l Jake -P /usr/share/wordlists/rockyou.txt ssh://10.10.232.91
 ```
-<img src="Images/image-8.png" alt="alt text" width="70%" />
+<img src="Images/image-8.png" alt="alt text" width="50%" />
 
 Hydra successfully identified valid SSH credentials for the user **Jake**.
 
@@ -75,7 +75,7 @@ Hydra successfully identified valid SSH credentials for the user **Jake**.
 
 After logging in via SSH as Jake, we discovered a second user named **holt**. Within holt's home directory, we found the `user.txt` flag.
 
-<img src="Images/image-8.png" alt="alt text" width="70%" />
+<img src="Images/image-8.png" alt="alt text" width="50%" />
 
 To escalate privileges, we checked what commands user **holt** was allowed to execute as root using `sudo -l`. It was revealed that holt could run `/usr/bin/less` with root privileges and without a password.
 
