@@ -7,7 +7,7 @@
 
 ---
 
-### 🔍 Enumeration
+## 🔍 Enumeration
 
 The first step in our assessment was to conduct an **Nmap** scan on the target machine to identify open ports and services. We ran the following command:
 
